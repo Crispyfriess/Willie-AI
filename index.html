@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f0f7ff" />
+    <meta
+      name="description"
+      content="willie AI is a Singapore parenting companion for newborn care, family support, and everyday questions."
+    />
+    <title>willie AI | Singapore New Parents Assistant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CX Agent Studio web widget -->
+    <script
+      defer
+      src="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/chat-messenger.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-default.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-layout.css"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        min-height: 100vh;
+        padding: 24px;
+        color: #1e293b;
+        background: linear-gradient(135deg, #f0f7ff 0%, #fff 100%);
+        font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 760px;
+        padding: 48px 36px;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, .07);
+        text-align: center;
+        margin: max(24px, 6vh) auto;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        color: #0369a1;
+        background: #e0f2fe;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      h1 {
+        margin-bottom: 16px;
+        color: #0f172a;
+        font-size: clamp(30px, 7vw, 38px);
+        font-weight: 700;
+        letter-spacing: -.02em;
+      }
+
+      .subtitle {
+        margin-bottom: 32px;
+        color: #64748b;
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 16px;
+        margin-bottom: 36px;
+        text-align: left;
+      }
+
+      .feature-card {
+        padding: 20px;
+        border: 1px solid #edf2f7;
+        border-radius: 16px;
+        background: #f8fafc;
+      }
+
+      .feature-card h2 {
+        margin-bottom: 6px;
+        color: #1e293b;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .feature-card p {
+        color: #64748b;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .footer-note {
+        color: #64748b;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .medical-note {
+        margin-top: 12px;
+        color: #94a3b8;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 520px) {
+        body { padding: 16px; }
+        .container { padding: 36px 22px; }
+        .subtitle { font-size: 15px; }
+        .features { grid-template-columns: 1fr; margin-bottom: 28px; }
+        .container { margin: 24px auto; }
+      }
+    </style>
+
+    <script>
+      window.addEventListener("chat-messenger-loaded", () => {
+        chatSdk.registerContext(
+          chatSdk.prebuilts.ces.createContext({
+            deploymentName:
+              "projects/286851988515/locations/us/apps/fa6bd9ca-1cba-437a-b89c-858680a583d5/deployments/547cd575-e74e-4554-9c13-326eb5a8fb5b",
+            tokenBroker: {
+              enableTokenBroker: true,
+              enableRecaptcha: true,
+            },
+          }),
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <main class="container">
+      <div class="badge">Singapore Parenting Companion</div>
+      <h1>Meet willie AI</h1>
+      <p class="subtitle">
+        Your 24/7 personal assistant for newborn clinical care, Singapore government
+        grants (Baby Bonus and ECDA subsidies), daily routines, and partner night shifts.
+      </p>
+
+      <section class="features" aria-label="What willie AI can help with">
+        <article class="feature-card">
+          <h2>🍼 Newborn Care</h2>
+          <p>Evidence-based pediatric care from HealthHub and KKH guidelines.</p>
+        </article>
+        <article class="feature-card">
+          <h2>💰 Financial Grants</h2>
+          <p>Baby Bonus, CDA matching, and income-tiered ECDA subsidies.</p>
+        </article>
+        <article class="feature-card">
+          <h2>📅 Smart Shifts</h2>
+          <p>Fair night-shift routines and one-click Google Calendar sync.</p>
+        </article>
+      </section>
+
+      <p class="footer-note">Click the chat icon at the bottom right to start a conversation with willie AI.</p>
+      <p class="medical-note">For urgent or personal medical concerns, contact your healthcare provider.</p>
+    </main>
+
+    <chat-messenger url-allowlist="*">
+      <chat-messenger-container
+        chat-title="Willie AI"
+        chat-title-icon="https://gstatic.com/dialogflow-console/common/assets/ccai-favicons/conversational_agents.png"
+        enable-file-upload
+        enable-audio-input
+      >
+        <chat-reset-session-button
+          slot="titlebar-actions"
+          title-text="Start new chat"
+        ></chat-reset-session-button>
+        <chat-toggle-dialog-button
+          slot="titlebar-actions"
+          title-text-expanded="Collapse"
+          title-text-collapsed="Expand"
+        ></chat-toggle-dialog-button>
+        <chat-messenger-close-button
+          slot="titlebar-actions"
+          title-text="Close"
+        ></chat-messenger-close-button>
+      </chat-messenger-container>
+    </chat-messenger>
+    <script>
+      document
+        .querySelector("chat-messenger")
+        ?.addEventListener("chat-messenger-error", (event) => {
+          console.error(
+            "willie AI chat error:",
+            JSON.stringify(event.detail, null, 2),
+          );
+        });
+    </script>
+  </body>
+</html>
