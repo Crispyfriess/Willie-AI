@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f0f7ff" />
+    <meta name="theme-color" content="#f7f8f5" />
     <meta
       name="description"
-      content="willie AI is a Singapore parenting companion for newborn care, family support, and everyday questions."
+      content="willie AI is a supportive Singapore parenting companion for infant care, co-parenting, and everyday questions."
     />
-    <title>willie AI | Singapore New Parents Assistant</title>
+    <title>willie AI | A little more support for new parents</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -30,102 +30,376 @@
       rel="stylesheet"
       href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-layout.css"
     />
+
     <style>
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        color-scheme: light;
+        --ink: #202d3a;
+        --muted: #63717c;
+        --blue: #285e68;
+        --blue-dark: #1e4c56;
+        --mint: #dcece5;
+        --cream: #f7f8f5;
+        --line: #e5e9e4;
+      }
 
+      *, *::before, *::after { box-sizing: border-box; }
+      html { min-width: 320px; scroll-behavior: smooth; }
       body {
+        margin: 0;
         min-height: 100vh;
-        padding: 24px;
-        color: #1e293b;
-        background: linear-gradient(135deg, #f0f7ff 0%, #fff 100%);
-        font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse at 88% 10%, rgba(219, 237, 229, .68), transparent 32rem),
+          var(--cream);
+        font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
 
-      .container {
-        width: 100%;
-        max-width: 760px;
-        padding: 48px 36px;
-        border: 1px solid #e2e8f0;
-        border-radius: 24px;
-        background: #fff;
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, .07);
-        text-align: center;
-        margin: max(24px, 6vh) auto;
+      .site-header, main, .site-footer {
+        width: min(1120px, calc(100% - 64px));
+        margin-inline: auto;
       }
 
-      .badge {
-        display: inline-block;
-        margin-bottom: 20px;
-        padding: 6px 16px;
-        border-radius: 9999px;
-        color: #0369a1;
-        background: #e0f2fe;
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 27px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        font-family: Manrope, sans-serif;
+        font-size: 19px;
+        font-weight: 800;
+        letter-spacing: -.06em;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 12px 12px 12px 4px;
+        color: white;
+        background: var(--blue);
+        font-size: 17px;
+        letter-spacing: 0;
+      }
+
+      .header-note {
+        color: var(--muted);
         font-size: 13px;
+        font-weight: 500;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+        align-items: center;
+        gap: clamp(40px, 8vw, 100px);
+        padding-block: clamp(44px, 8vw, 102px) 82px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 22px;
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 22px;
+        height: 1px;
+        background: #7ba39b;
+        content: "";
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      h1, h2, h3 { font-family: Manrope, "DM Sans", sans-serif; }
+
+      h1 {
+        max-width: 610px;
+        margin-bottom: 21px;
+        font-size: clamp(42px, 6.1vw, 72px);
+        font-weight: 600;
+        letter-spacing: -.075em;
+        line-height: 1.045;
+      }
+
+      h1 em {
+        color: var(--blue);
+        font-style: normal;
+      }
+
+      .hero-copy {
+        max-width: 530px;
+        margin-bottom: 29px;
+        color: var(--muted);
+        font-size: clamp(16px, 1.65vw, 18px);
+        line-height: 1.75;
+      }
+
+      .chat-hint {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        width: fit-content;
+        padding: 13px 17px 13px 13px;
+        border: 1px solid #dbe5e1;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, .68);
+      }
+
+      .chat-hint-icon {
+        display: grid;
+        width: 35px;
+        height: 35px;
+        place-items: center;
+        border-radius: 11px;
+        background: var(--mint);
+        color: var(--blue-dark);
+        font-size: 17px;
+      }
+
+      .chat-hint strong, .chat-hint span { display: block; }
+      .chat-hint strong { margin-bottom: 2px; font-size: 13px; }
+      .chat-hint span { color: var(--muted); font-size: 12px; }
+
+      .hero-visual {
+        position: relative;
+        min-height: 405px;
+        display: grid;
+        place-items: center;
+      }
+
+      .visual-orbit {
+        position: absolute;
+        width: min(390px, 90%);
+        aspect-ratio: 1;
+        border: 1px solid rgba(72, 121, 111, .16);
+        border-radius: 50%;
+      }
+
+      .visual-orbit::before, .visual-orbit::after {
+        position: absolute;
+        border: 1px solid rgba(72, 121, 111, .12);
+        border-radius: 50%;
+        content: "";
+        inset: 22px;
+      }
+
+      .visual-orbit::after { inset: 46px; }
+
+      .note-card {
+        position: relative;
+        z-index: 1;
+        width: min(330px, 84%);
+        padding: 25px;
+        border: 1px solid rgba(255, 255, 255, .9);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, .89);
+        box-shadow: 0 25px 70px rgba(36, 67, 66, .12);
+        transform: rotate(-2deg);
+      }
+
+      .note-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 26px;
+      }
+
+      .note-label {
+        color: #80908d;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .note-dots { display: flex; gap: 4px; }
+      .note-dots i { width: 5px; height: 5px; border-radius: 50%; background: #c3d8cf; }
+
+      .note-card blockquote {
+        margin: 0 0 24px;
+        color: var(--ink);
+        font-family: Manrope, sans-serif;
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: -.045em;
+        line-height: 1.45;
+      }
+
+      .note-bottom {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding-top: 15px;
+        border-top: 1px solid #edf0ec;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .note-bottom span:first-child { color: var(--blue); font-size: 15px; }
+
+      .floating-tag {
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 14px;
+        border: 1px solid rgba(255,255,255,.9);
+        border-radius: 13px;
+        background: white;
+        box-shadow: 0 12px 35px rgba(36,67,66,.1);
+        color: #50645f;
+        font-size: 11px;
         font-weight: 600;
       }
 
-      h1 {
-        margin-bottom: 16px;
-        color: #0f172a;
-        font-size: clamp(30px, 7vw, 38px);
-        font-weight: 700;
-        letter-spacing: -.02em;
+      .floating-tag span { font-size: 15px; }
+      .tag-one { top: 65px; right: 8px; transform: rotate(4deg); }
+      .tag-two { bottom: 57px; left: 4px; transform: rotate(-4deg); }
+
+      .section-rule { border: 0; border-top: 1px solid var(--line); }
+
+      .support-section { padding-block: 47px 70px; }
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 25px;
       }
 
-      .subtitle {
-        margin-bottom: 32px;
-        color: #64748b;
-        font-size: 17px;
+      .section-heading h2 {
+        max-width: 530px;
+        margin-bottom: 0;
+        font-size: clamp(25px, 3.4vw, 36px);
+        font-weight: 600;
+        letter-spacing: -.06em;
+        line-height: 1.2;
+      }
+
+      .section-heading p {
+        max-width: 330px;
+        margin-bottom: 2px;
+        color: var(--muted);
+        font-size: 13px;
         line-height: 1.6;
       }
 
-      .features {
+      .support-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-        gap: 16px;
-        margin-bottom: 36px;
-        text-align: left;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
       }
 
-      .feature-card {
-        padding: 20px;
-        border: 1px solid #edf2f7;
-        border-radius: 16px;
-        background: #f8fafc;
+      .support-card {
+        min-height: 180px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: rgba(255,255,255,.65);
       }
 
-      .feature-card h2 {
-        margin-bottom: 6px;
-        color: #1e293b;
+      .support-icon {
+        display: grid;
+        width: 37px;
+        height: 37px;
+        margin-bottom: 18px;
+        place-items: center;
+        border-radius: 12px;
+        background: #e5efea;
+        color: var(--blue-dark);
+        font-size: 17px;
+      }
+
+      .support-card:nth-child(2) .support-icon { background: #f4eadc; color: #8a6844; }
+      .support-card:nth-child(3) .support-icon { background: #e8e8f2; color: #625d85; }
+
+      .support-card h3 {
+        margin-bottom: 7px;
         font-size: 15px;
         font-weight: 700;
+        letter-spacing: -.025em;
       }
 
-      .feature-card p {
-        color: #64748b;
+      .support-card p {
+        margin-bottom: 0;
+        color: var(--muted);
         font-size: 13px;
-        line-height: 1.5;
+        line-height: 1.65;
       }
 
-      .footer-note {
-        color: #64748b;
-        font-size: 13px;
-        line-height: 1.6;
+      .care-note {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 44px;
+        padding: 18px 20px;
+        border: 1px solid #e4e8e2;
+        border-radius: 15px;
+        background: #f0f2ed;
       }
 
-      .medical-note {
-        margin-top: 12px;
-        color: #94a3b8;
-        font-size: 12px;
-        line-height: 1.5;
+      .care-note-icon { color: var(--blue); font-size: 17px; line-height: 1.3; }
+      .care-note p { margin: 0; color: #63706b; font-size: 12px; line-height: 1.65; }
+      .care-note strong { color: var(--ink); }
+
+      .site-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding-block: 20px 28px;
+        border-top: 1px solid var(--line);
+        color: #84908b;
+        font-size: 11px;
       }
 
-      @media (max-width: 520px) {
-        body { padding: 16px; }
-        .container { padding: 36px 22px; }
-        .subtitle { font-size: 15px; }
-        .features { grid-template-columns: 1fr; margin-bottom: 28px; }
-        .container { margin: 24px auto; }
+      @media (max-width: 760px) {
+        .site-header, main, .site-footer { width: min(100% - 40px, 560px); }
+        .hero { grid-template-columns: 1fr; gap: 25px; padding-top: 49px; padding-bottom: 40px; }
+        .hero-visual { min-height: 355px; }
+        .visual-orbit { width: 310px; }
+        .tag-one { right: 4%; top: 45px; }
+        .tag-two { left: 2%; bottom: 42px; }
+        .support-section { padding-top: 34px; }
+        .section-heading { display: block; }
+        .section-heading p { margin-top: 12px; }
+        .support-grid { grid-template-columns: 1fr; }
+        .support-card { min-height: auto; }
+        .support-icon { margin-bottom: 13px; }
+      }
+
+      @media (max-width: 440px) {
+        .site-header, main, .site-footer { width: calc(100% - 32px); }
+        .site-header { padding-block: 20px; }
+        .header-note { max-width: 125px; text-align: right; font-size: 11px; }
+        h1 { font-size: 45px; }
+        .hero-copy { font-size: 15px; }
+        .hero-visual { min-height: 315px; }
+        .visual-orbit { width: 270px; }
+        .note-card { padding: 21px; }
+        .note-card blockquote { font-size: 19px; }
+        .floating-tag { padding: 9px 11px; font-size: 10px; }
+        .site-footer { display: block; line-height: 1.8; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
       }
     </style>
 
@@ -145,32 +419,85 @@
     </script>
   </head>
   <body>
-    <main class="container">
-      <div class="badge">Singapore Parenting Companion</div>
-      <h1>Meet willie AI</h1>
-      <p class="subtitle">
-        Your 24/7 personal assistant for newborn clinical care, Singapore government
-        grants (Baby Bonus and ECDA subsidies), daily routines, and partner night shifts.
-      </p>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="willie AI home">
+        <span class="brand-mark" aria-hidden="true">w</span>
+        <span>willie AI</span>
+      </a>
+      <span class="header-note">A little more support for the early days</span>
+    </header>
 
-      <section class="features" aria-label="What willie AI can help with">
-        <article class="feature-card">
-          <h2>🍼 Newborn Care</h2>
-          <p>Evidence-based pediatric care from HealthHub and KKH guidelines.</p>
-        </article>
-        <article class="feature-card">
-          <h2>💰 Financial Grants</h2>
-          <p>Baby Bonus, CDA matching, and income-tiered ECDA subsidies.</p>
-        </article>
-        <article class="feature-card">
-          <h2>📅 Smart Shifts</h2>
-          <p>Fair night-shift routines and one-click Google Calendar sync.</p>
-        </article>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy-wrap">
+          <p class="eyebrow">For Singapore’s new parents</p>
+          <h1 id="hero-title">You’re learning as you go. <em>That’s okay.</em></h1>
+          <p class="hero-copy">
+            Newborn questions can come at any hour. willie AI is here to help you
+            think through infant care, everyday routines, and the little things
+            that make family life feel more manageable.
+          </p>
+          <div class="chat-hint">
+            <span class="chat-hint-icon" aria-hidden="true">✳</span>
+            <span>
+              <strong>Start with what’s on your mind</strong>
+              <span>Open the chat bubble in the corner to talk with willie AI.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="A gentle reminder for new parents">
+          <div class="visual-orbit" aria-hidden="true"></div>
+          <div class="note-card">
+            <div class="note-top">
+              <span class="note-label">A gentle reminder</span>
+              <span class="note-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            </div>
+            <blockquote>Small questions are worth asking. You don’t have to figure everything out alone.</blockquote>
+            <div class="note-bottom"><span aria-hidden="true">✦</span><span>One step, one day, one question at a time</span></div>
+          </div>
+          <div class="floating-tag tag-one"><span aria-hidden="true">☼</span> Care for baby</div>
+          <div class="floating-tag tag-two"><span aria-hidden="true">♡</span> Care for parents too</div>
+        </div>
       </section>
 
-      <p class="footer-note">Click the chat icon at the bottom right to start a conversation with willie AI.</p>
-      <p class="medical-note">For urgent or personal medical concerns, contact your healthcare provider.</p>
+      <hr class="section-rule" />
+
+      <section class="support-section" aria-labelledby="support-title">
+        <div class="section-heading">
+          <h2 id="support-title">A steady companion for the questions that come up.</h2>
+          <p>Made with the realities of new parenthood in mind: busy days, changing needs, and lots to learn.</p>
+        </div>
+
+        <div class="support-grid">
+          <article class="support-card">
+            <span class="support-icon" aria-hidden="true">✿</span>
+            <h3>Understanding your baby</h3>
+            <p>Explore common questions about feeding, sleep, crying, development, and infant cues.</p>
+          </article>
+          <article class="support-card">
+            <span class="support-icon" aria-hidden="true">⌂</span>
+            <h3>Finding a family rhythm</h3>
+            <p>Think through daily routines, sharing care, and making space for both parents to rest.</p>
+          </article>
+          <article class="support-card">
+            <span class="support-icon" aria-hidden="true">↗</span>
+            <h3>Knowing your next step</h3>
+            <p>Get help sorting through a question and deciding what may be useful to ask a care professional.</p>
+          </article>
+        </div>
+      </section>
+
+      <aside class="care-note" aria-label="Health and privacy note">
+        <span class="care-note-icon" aria-hidden="true">ⓘ</span>
+        <p><strong>A note on care and privacy.</strong> willie AI offers general information, not a medical diagnosis. For urgent concerns or advice about your baby’s health, contact a healthcare professional. Please avoid sharing passwords, identification numbers, or other sensitive personal details in chat.</p>
+      </aside>
     </main>
+
+    <footer class="site-footer">
+      <span>willie AI · Singapore parenting companion</span>
+      <span>Here for the questions, big and small.</span>
+    </footer>
 
     <chat-messenger url-allowlist="*">
       <chat-messenger-container
