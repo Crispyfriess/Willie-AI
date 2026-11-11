@@ -161,6 +161,57 @@
         background: rgba(255, 255, 255, .68);
       }
 
+      .hero-actions { display: grid; justify-items: start; gap: 12px; }
+
+      .primary-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        min-height: 48px;
+        padding: 0 19px;
+        border: 1px solid var(--blue);
+        border-radius: 13px;
+        color: #fff;
+        background: var(--blue);
+        box-shadow: 0 8px 20px rgba(40, 94, 104, .16);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .primary-action:hover {
+        background: var(--blue-dark);
+        box-shadow: 0 11px 24px rgba(40, 94, 104, .22);
+        transform: translateY(-1px);
+      }
+
+      .primary-action:focus-visible, .brand:focus-visible {
+        outline: 3px solid #92bcb2;
+        outline-offset: 4px;
+      }
+
+      .primary-action span { font-size: 17px; }
+
+      .sample-prompts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      .sample-prompts-label {
+        flex-basis: 100%;
+        margin-bottom: 2px;
+        color: #74817c;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .prompt-chip {
+        padding: 7px 10px;
+        border: 1px solid #dfe7e2;
+        border-radius: 999px;
+        color: #53645f;
+        background: rgba(255, 255, 255, .58);
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
       .chat-hint-icon {
         display: grid;
         width: 35px;
@@ -315,6 +366,21 @@
         background: rgba(255,255,255,.65);
       }
 
+      /* Scroll reveals are enabled by JavaScript, so the content stays visible if it is unavailable. */
+      html.motion-ready .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .7, .2, 1);
+      }
+
+      html.motion-ready .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .support-card:nth-child(2) { transition-delay: 100ms; }
+      .support-card:nth-child(3) { transition-delay: 200ms; }
+
       .support-icon {
         display: grid;
         width: 37px;
@@ -400,6 +466,12 @@
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
+        .primary-action { transition: none; }
+        html.motion-ready .reveal-on-scroll {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
       }
     </style>
 
@@ -435,14 +507,25 @@
           <p class="hero-copy">
             Newborn questions can come at any hour. willie AI is here to help you
             think through infant care, everyday routines, and the little things
-            that make family life feel more manageable.
+            that make family life feel more manageable, including Singapore family
+            support such as Baby Bonus and ECDA subsidies.
           </p>
-          <div class="chat-hint">
-            <span class="chat-hint-icon" aria-hidden="true">✳</span>
-            <span>
-              <strong>Start with what’s on your mind</strong>
-              <span>Open the chat bubble in the corner to talk with willie AI.</span>
-            </span>
+          <div class="hero-actions">
+            <a class="primary-action" href="#chat-widget">
+              Talk with willie AI <span aria-hidden="true">↗</span>
+            </a>
+            <div class="chat-hint">
+              <span class="chat-hint-icon" aria-hidden="true">✳</span>
+              <span>
+                <strong>Voice mode for hands-full moments</strong>
+                <span>Tap the microphone for short, natural spoken replies—under 30 words per breath, without raw links read aloud.</span>
+              </span>
+            </div>
+            <div class="sample-prompts" aria-label="Example questions to ask willie AI">
+              <span class="sample-prompts-label">You could ask</span>
+              <span class="prompt-chip">How can we share night feeds?</span>
+              <span class="prompt-chip">What Baby Bonus support is available?</span>
+            </div>
           </div>
         </div>
 
@@ -482,15 +565,15 @@
           </article>
           <article class="support-card">
             <span class="support-icon" aria-hidden="true">↗</span>
-            <h3>Knowing your next step</h3>
-            <p>Get help sorting through a question and deciding what may be useful to ask a care professional.</p>
+            <h3>Singapore family support</h3>
+            <p>Explore questions about Baby Bonus, CDA, and ECDA subsidies for families.</p>
           </article>
         </div>
       </section>
 
       <aside class="care-note" aria-label="Health and privacy note">
         <span class="care-note-icon" aria-hidden="true">ⓘ</span>
-        <p><strong>A note on care and privacy.</strong> willie AI offers general information, not a medical diagnosis. For urgent concerns or advice about your baby’s health, contact a healthcare professional. Please avoid sharing passwords, identification numbers, or other sensitive personal details in chat.</p>
+        <p><strong>Health and privacy.</strong> willie AI provides general information, not medical diagnosis. For urgent or personal health concerns, contact a healthcare professional. Don’t share passwords or identification numbers in chat.</p>
       </aside>
     </main>
 
@@ -499,7 +582,7 @@
       <span>Here for the questions, big and small.</span>
     </footer>
 
-    <chat-messenger url-allowlist="*">
+    <chat-messenger id="chat-widget" url-allowlist="*">
       <chat-messenger-container
         chat-title="willie AI"
         chat-title-icon="https://gstatic.com/dialogflow-console/common/assets/ccai-favicons/conversational_agents.png"
@@ -530,6 +613,34 @@
             JSON.stringify(event.detail, null, 2),
           );
         });
+    </script>
+    <script>
+      const revealItems = document.querySelectorAll(
+        ".support-section, .support-card, .care-note",
+      );
+
+      if (
+        "IntersectionObserver" in window &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        document.documentElement.classList.add("motion-ready");
+        revealItems.forEach((item) => item.classList.add("reveal-on-scroll"));
+
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+              } else {
+                entry.target.classList.remove("is-visible");
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -35px 0px" },
+        );
+
+        revealItems.forEach((item) => revealObserver.observe(item));
+      }
     </script>
   </body>
 </html>
